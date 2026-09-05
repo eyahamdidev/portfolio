@@ -732,23 +732,10 @@ const DEFAULT_CASES = [
 
 const DEFAULT_DOCS = [
   {
-    id: "folder-models",
-    name: "Medical_AI_Models",
-    items: [
-      { id: "d1", name: "xray_classifier_v3.pt", description: "ResNet-50 weights for chest X-ray triage.", url: "", mimeType: "" },
-      { id: "d2", name: "sepsis_predictor.onnx", description: "Exported ONNX sepsis early-warning model.", url: "", mimeType: "" },
-      { id: "d3", name: "retina_seg_unet.h5", description: "U-Net weights for retinal vessel segmentation.", url: "", mimeType: "" },
-      { id: "d4", name: "README.txt", description: "Notes on model versions and training data.", url: "", mimeType: "" },
-    ],
-  },
-  {
     id: "folder-papers",
     name: "Research_Papers",
     items: [
       { id: "d5", name: "Eya_Hamdi_CV.pdf", description: "Curriculum vitae — upload the real file as Admin.", url: "", mimeType: "" },
-      { id: "d6", name: "deep_learning_radiology_2024.pdf", description: "Survey of deep learning in radiology.", url: "", mimeType: "" },
-      { id: "d7", name: "clinical_nlp_survey.pdf", description: "Clinical NLP literature survey.", url: "", mimeType: "" },
-      { id: "d8", name: "thesis_final_draft.docx", description: "Graduate thesis draft.", url: "", mimeType: "" },
     ],
   },
 ];
@@ -943,7 +930,7 @@ function TerminalApp({ cases, role }) {
       case "whoami":
         out.push(
           role === "admin"
-            ? "eya_hamdi (admin) -- Medical AI / Healthcare Software Engineer"
+            ? "eya_hamdi (admin) -- Software Engineering Student, Data Science Specialization"
             : "visitor -- read-only access"
         );
         break;
@@ -951,14 +938,14 @@ function TerminalApp({ cases, role }) {
         out.push("Medical_AI_Models/  Research_Papers/  resume.txt  contact.txt");
         break;
       case "cat resume.txt":
-        out.push("Eya Hamdi -- Healthcare AI Engineer");
-        out.push("Focus: diagnostic ML, clinical NLP, deployed medical imaging models.");
+        out.push("Eya Hamdi -- Software Engineering Student, Data Science Specialization");
+        out.push("Focus: AI/ML replications with real-world extensions, full-stack product development.");
         break;
       case "projects":
         out.push(cases.map((c) => `${c.id}: ${c.name}`).join("\n"));
         break;
       case "skills":
-        out.push("PyTorch, TensorFlow, Python, Clinical NLP, DICOM, FHIR, MLOps");
+        out.push("PyTorch, TensorFlow, Deep Learning, RL, Generative AI, RAG, Computer Vision, NLP/Transformers, ETL, SQL, Python");
         break;
       case "date":
         out.push(new Date().toString());
@@ -1021,24 +1008,35 @@ function TerminalApp({ cases, role }) {
 // APP CONTENT: Bio Vitals (skills page)
 // =====================================================================
 function BioVitalsApp() {
-  const skills = [
-    { label: "PYTORCH / TENSORFLOW", val: 92 },
-    { label: "CLINICAL NLP", val: 85 },
-    { label: "MEDICAL IMAGING (DICOM)", val: 88 },
-    { label: "MLOPS / DEPLOYMENT", val: 80 },
-    { label: "PYTHON", val: 95 },
-    { label: "FHIR / HL7 INTEROP", val: 74 },
+  const skillGroups = [
+    { label: "AI / ML", items: ["Deep Learning", "PyTorch", "TensorFlow", "Reinforcement Learning", "Predictive Modeling", "Generative AI", "LLM Fine-Tuning", "RAG", "Hugging Face"] },
+    { label: "DATA SCIENCE & ANALYTICS", items: ["Big Data Analytics", "Business Intelligence", "Python (Pandas/NumPy)"] },
+    { label: "COMPUTER VISION", items: ["Image Classification", "CNNs", "ResNet", "Transfer Learning"] },
+    { label: "NLP", items: ["Large Language Models (LLMs)", "Attention Mechanisms", "Transformers", "Tokenizers"] },
+    { label: "DATA ENGINEERING", items: ["ETL Pipelines", "SQL"] },
   ];
   return (
-    <div style={{ background: "#03231f", color: "#00ffb0", fontFamily: "'Courier New', monospace", padding: 14, height: "100%", boxSizing: "border-box" }}>
+    <div style={{ background: "#03231f", color: "#00ffb0", fontFamily: "'Courier New', monospace", padding: 14, height: "100%", boxSizing: "border-box", overflowY: "auto" }}>
       <div style={{ borderBottom: "1px solid #00ffb0", paddingBottom: 6, marginBottom: 10, fontSize: 14 }}>
         PATIENT MONITOR :: SKILL VITALS -- STATUS: STABLE
       </div>
-      {skills.map((s) => (
-        <div key={s.label} style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 11, marginBottom: 2 }}>{s.label} — {s.val}%</div>
-          <div style={{ height: 10, border: "1px solid #00ffb0" }}>
-            <div style={{ width: `${s.val}%`, height: "100%", background: "#00ffb0" }} />
+      {skillGroups.map((g) => (
+        <div key={g.label} style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 11, opacity: 0.8, marginBottom: 4, letterSpacing: 0.5 }}>{g.label}</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {g.items.map((s) => (
+              <span
+                key={s}
+                style={{
+                  border: "1px solid #00ffb0",
+                  borderRadius: 4,
+                  padding: "2px 8px",
+                  fontSize: 11,
+                }}
+              >
+                {s} ✓
+              </span>
+            ))}
           </div>
         </div>
       ))}
